@@ -17,5 +17,5 @@ class FirstScreenViewModel : ViewModel(){
             println("running flow")
             emit(count++)
         }
-    }.stateIn(viewModelScope, SharingStarted.Lazily, 0)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 }

@@ -10,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "firsScreen" ){
                         composable("firsScreen"){
                             val viewModel = viewModel<FirstScreenViewModel>()
-                            val time by viewModel.counter.collectAsState()
+                            val time by viewModel.counter.collectAsStateWithLifecycle()
 
                             FirstScreen(time = time, onButtonClicked = {
                                 navController.navigate("secondScreen")

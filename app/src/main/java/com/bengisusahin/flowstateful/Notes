@@ -1,0 +1,18 @@
+class FirstScreenViewModel : ViewModel(){
+
+    private var count = 0
+
+    val counter = flow {
+        while (true) {
+            delay(1000L)
+            println("running flow")
+            emit(count++)
+        }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, 0)
+}
+
+Lazily kullanınca sayfa değiştirdiğinde, uygulamayı kapattığında sayaç devam etti
+
+SharingStarted.WhileSubscribed(5000) yapınca başka ekrana geçince 5sn sonra durdu ama uygulamayı arka plana aldığında devam etti
+Çünkü main activityde val time by viewModel.counter.collectAsState() kısmı lifecycle awarness yapmıyor. Çünkü susbscride eden biri var.
+Bunu lifecycle awarness yapmak için collectAsState() yerine collectAsStateWithLifecycle kullanabiliriz
